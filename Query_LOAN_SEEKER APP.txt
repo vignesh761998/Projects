@@ -1,0 +1,114 @@
+
+create table if not exists customer_login
+(
+	email_id    varchar(64) 	notnull,
+	password    varchar(30) 	notnull,
+	login_code  varchar(30) 	default="",
+	
+	constraint user_login_email_id primary key(email_id)
+);
+
+create table if not exists customer_details
+(
+	sno		int         	auto increment,
+	email_id 	varchar(64) 	notnull,
+	profile		blob,
+	first_name	varchar(30) 	notnull,
+	last_name       varchar(20) 	notnull,
+	father_name     varchar(20)     notnull,
+	dob             date            notnull,
+	sex		varchar(10)     notnull,
+	categoy		varchar(20)	notnull,
+	maritul_status  varchar(10)	notnull,
+	qualification   varchar(20)	notnull,
+	marks_obtained	int 		notnull,
+	occupation      varchar(20)	notnull,
+	income          int,
+	pan_no		varchar(20)	notnull,
+	aadhar_no 	varchar(20)	notnull,
+	state		varchar(20)	notnull,
+	address		varchar(255)	notnull,
+	district 	varchar(50)	notnull,
+	pin_code	bigint		notnull,
+	mobile          bigint          notnull,
+	bank_name	varchar(50)	notnull,
+	bank_ifsc	varchar(30)	notnull,
+	branch 		varchar(20)	notnull,
+	account_no	bigint		notnull,
+	liablity_details varchar(50),   	
+	
+	constraint foreign key(email_id) referenced(user_login_email_id)
+);
+
+create table if not exists customer_guardian_details
+(
+	sno		int         	auto increment,
+	email_id 	varchar(64)     notnull,
+	first_name	varchar(30)     notnull,
+	last_name       varchar(20) notnull,
+	father_name     varchar(20)     notnull,
+	dob             date            notnull,
+	sex		varchar(10)     notnull,
+	categoy		varchar(20)	notnull,
+	maritul_status  varchar(10)	notnull,
+	qualification   varchar(20)	notnull,
+	occupation      varchar(20)	notnull,
+	income          int,
+	pan_no		varchar(20)	notnull,
+	aadhar_no 	varchar(20)	notnull,
+	state		varchar(20)	notnull,
+	address		varchar(255)	notnull,
+	district 	varchar(50)	notnull,
+	pin_code	bigint		notnull,
+	mobile          bigint          notnull,
+	bank_name	varchar(50)	notnull,
+	bank_ifsc	varchar(30)	notnull,
+	branch 		varchar(20)	notnull,
+	account_no	bigint		notnull,
+	liablity_details varchar(50),   	
+	
+	constraint foreign key(email_id) referenced(user_login_email_id)
+);
+
+create table if not exists user_notifications
+(
+	sno 	    int            	auto increment,  
+	email_id    varchar(70)         notnull,
+	messages    varchar(255)   	notnull,
+	constraint foreign key(email_id) referenced(user_login_email_id)
+);
+
+create table if not exists customer_proof
+(
+	email_id		varchar(70),
+	profile			blob,
+	mark_sheet		blob,
+	counselling_admission	blob,
+	constraint foreign key(email_id) referenced(user_login_email_id)
+);
+
+create table if not exists bank_login
+(
+	email_id 	varchar(64) 	notnull,
+	password 	varchar(64) 	notnull,
+	login_code 	varchar(30) 	default="",
+	constraint bank_login_email_id primary key(email_id)	
+);
+
+create table if not exists bank_details
+(
+	email_id    	  varchar(70)   notnull,
+	bank_name   	  varchar(50)   notnull,
+	branch_name 	  varchar(50)   notnull,
+	ifsc_code   	  varchar(50)   notnull,
+	providing_amount  float         notnull,
+	constraint foreign key(email_id) referenced(bank_login_email_id)	
+);
+
+create table if not exists bank_notifications
+(
+	sno 	    int            	auto increment,  
+	email_id    varchar(70)    	notnull,	
+	messages    varchar(255)   	notnull,
+	constraint foreign key(email_id) referenced(bank_login_email_id)
+);
